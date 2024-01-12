@@ -9,7 +9,9 @@ import { useState } from 'react';
 const AUTHOR = { ME: 'ME', BOT: 'BOT' }
 function App() {
   const [message, setMessage] = useState('')
-  const [messageList, setMessageList] = useState([])
+  const [messageList, setMessageList] = useState([{
+    author: AUTHOR.BOT, message: 'hello'
+  }])
 
   const onSend = () => {
     
@@ -28,6 +30,12 @@ function App() {
 
   }
 
+  const onKeyDownMessage = (e) => {    
+    if (e.key === 'Enter') {
+      onSend()
+    }
+  }
+
   console.log("messageList ")
   return (<main style={{ background: '#EEE', height: '100vh', position: 'relative'}}>
             <header className='d-flex justify-content-center align-items-center' 
@@ -36,13 +44,17 @@ function App() {
             </header>
 
             <div className='w-100 d-flex justify-content-end' style={{ position: 'absolute', bottom: '200px', width: '100%', height: '300px', padding: '0 5em'}}>
-              <div style={{ width: '400px', background: 'white', border: '1px solid #DDD', borderRadius: '10px'}}>
+              <div style={{ width: '400px', background: 'white', border: '1px solid #DDD', borderRadius: '10px',paddingTop: '1em'}}>
                 {messageList.map( (item,idx) => 
                   {
+                    const classStr = item.author === AUTHOR.ME?'me-msg':'bot-msg'
+                    const classContainerStr = item.author === AUTHOR.ME?'d-flex justify-content-end':'d-flex justify-content-start'
                     return (<div key={idx}>                      
-                              <div className='m-1 ps-3 pe-3'>
-                                <div>{item.author}:</div>
-                                <div>{item.message}</div>
+                              <div className={'m-1 ps-3 pe-3 ' + classContainerStr}>
+                                <div className={classStr}>
+                                  {/* <div className='fw-bold'>{item.author}:</div> */}
+                                  <div>{item.message}</div>
+                                </div>
                               </div>
                             </div>)
                   }
@@ -55,7 +67,7 @@ function App() {
               <div style={{ position: 'relative'}}>
                 <input className="w-100 p-3" type="text" value={message}
                   style={{ background: 'white', borderRadius: '30px', height: '50px', border: '1px solid #DDD'}}
-                  onChange={(e) => setMessage(e.target.value)}>
+                  onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => onKeyDownMessage(e)}>
                 </input>
                 <button style={{ position: 'absolute', right: '10px', top: '10px', height: '30px', borderRadius: '20px', background: '#E3000F', border: '1px solid #DDD'}}
                   onClick={() => onSend()}>
