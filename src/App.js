@@ -12,6 +12,7 @@ function App() {
   const [messageList, setMessageList] = useState([{
     author: AUTHOR.BOT, message: 'hello'
   }])
+  const [showChat, setShowChat] = useState('')
 
   const onSend = () => {
     
@@ -36,14 +37,15 @@ function App() {
     }
   }
 
-  console.log("messageList ")
+
   return (<main className='main'>
             <header className='d-flex justify-content-center align-items-center header'>
               <img src={logo} alt="123"></img>
             </header>
 
+            {showChat?  
             <div className='w-100 d-flex justify-content-end message-list-container'>
-              <div className='message-list' style={{ width: '400px', background: 'white', border: '1px solid #DDD', borderRadius: '10px',paddingTop: '1em'}}>
+              <div className='message-list'>
                 {messageList.map( (item,idx) => 
                   {
                     const classStr = item.author === AUTHOR.ME?'me-msg':'bot-msg'
@@ -60,6 +62,7 @@ function App() {
                 )}
               </div>
             </div>
+            :null}
 
             <div className="fw-bold d-flex alig-items-center justify-content-center link-contract" role="button">
                 <div>
@@ -85,15 +88,15 @@ function App() {
                   <FontAwesomeIcon icon={faCircleArrowRight} style={{ color: 'white'}} />
                 </button>
               </div>
-              <div className='d-flex justify-content-center align-items-center' style={{ background: 'white', borderRadius: '50px', padding: '0.7em 1em', boxShadow: '0px 5px 5px grey'}} role="button">
+              <div className='d-flex justify-content-center align-items-center chat-control' 
+                role="button" onClick={() => setShowChat(!showChat)}>
                 <div style={{ background: "#FF0000", borderRadius: '50%', padding: '0.2em 0.5em', boxShadow: "0px 5px 5px grey"  }}>
                   <FontAwesomeIcon icon={faCommentDots} style={{ color: 'white'}} />
                 </div>
                 <div className="ms-2 me-2 fst-italic fw-bold">Chat</div>
-                <div>
+                <div className={showChat?'rotated':''}>
                   <FontAwesomeIcon icon={faAngleDown} />
                 </div>
-
               </div>
             </div>
 

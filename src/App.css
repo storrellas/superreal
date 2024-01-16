@@ -102,6 +102,7 @@
   border-radius: 10px;
   padding-top: 1em;
 }
+
 .send-button{
   position: absolute;
   right: 10px;
@@ -126,4 +127,8 @@
   position: absolute;
   width: 100%; 
   bottom: 0;
+}
+
+.rotated {
+  transform: rotate(180deg); /* Equal to rotateZ(45deg) */
 }
