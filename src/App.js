@@ -2,7 +2,7 @@ import logo from './assets/mediamarkt_white_logo.png';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faCircleArrowRight, faStar, faArrowRight, faBars, faCommentDots, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 
 
@@ -37,14 +37,13 @@ function App() {
   }
 
   console.log("messageList ")
-  return (<main style={{ background: '#EEE', height: '100vh', position: 'relative'}}>
-            <header className='d-flex justify-content-center align-items-center' 
-              style={{ background: '#E3000F', height: '80px', position: 'absolute', width: '100%'}}>
+  return (<main className='main'>
+            <header className='d-flex justify-content-center align-items-center header'>
               <img src={logo} alt="123"></img>
             </header>
 
-            <div className='w-100 d-flex justify-content-end' style={{ position: 'absolute', bottom: '200px', width: '100%', height: '300px', padding: '0 5em'}}>
-              <div style={{ width: '400px', background: 'white', border: '1px solid #DDD', borderRadius: '10px',paddingTop: '1em'}}>
+            <div className='w-100 d-flex justify-content-end message-list-container'>
+              <div className='message-list' style={{ width: '400px', background: 'white', border: '1px solid #DDD', borderRadius: '10px',paddingTop: '1em'}}>
                 {messageList.map( (item,idx) => 
                   {
                     const classStr = item.author === AUTHOR.ME?'me-msg':'bot-msg'
@@ -62,22 +61,43 @@ function App() {
               </div>
             </div>
 
+            <div className="fw-bold d-flex alig-items-center justify-content-center link-contract" role="button">
+                <div>
+                  <FontAwesomeIcon icon={faStar}/>
+                </div>
+                <div className="ms-3 me-3">Ir a la contratación</div>
+                <div>
+                  <FontAwesomeIcon icon={faArrowRight} />
+                </div>
+            </div>
 
-            <div className='text-center w-100' style={{ position: 'absolute', bottom: '100px', width: '100%', padding: '0 10em'}}>
-              <div style={{ position: 'relative'}}>
+            <div className='d-flex w-100 justify-content-center align-items-center' 
+              style={{ position: 'absolute', bottom: '100px', width: '100%', padding: '0 5em'}}>
+              <div style={{ background: 'white', borderRadius: '50%', padding: '0.7em 1em'}}>
+                <FontAwesomeIcon icon={faBars} />
+              </div>
+              <div className="flex-grow-1 ms-5 me-5" style={{ position: 'relative'}}>
                 <input className="w-100 p-3" type="text" value={message}
                   style={{ background: 'white', borderRadius: '30px', height: '50px', border: '1px solid #DDD'}}
                   onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => onKeyDownMessage(e)}>
                 </input>
-                <button style={{ position: 'absolute', right: '10px', top: '10px', height: '30px', borderRadius: '20px', background: '#E3000F', border: '1px solid #DDD'}}
-                  onClick={() => onSend()}>
-                  <FontAwesomeIcon icon={faCircleArrowRight} style={{ color: '#DDD'}} />
+                <button className='send-button' onClick={() => onSend()}>
+                  <FontAwesomeIcon icon={faCircleArrowRight} style={{ color: 'white'}} />
                 </button>
+              </div>
+              <div className='d-flex justify-content-center align-items-center' style={{ background: 'white', borderRadius: '50px', padding: '0.7em 1em', boxShadow: '0px 5px 5px grey'}} role="button">
+                <div style={{ background: "#FF0000", borderRadius: '50%', padding: '0.2em 0.5em', boxShadow: "0px 5px 5px grey"  }}>
+                  <FontAwesomeIcon icon={faCommentDots} style={{ color: 'white'}} />
+                </div>
+                <div className="ms-2 me-2 fst-italic fw-bold">Chat</div>
+                <div>
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </div>
+
               </div>
             </div>
 
-            <footer className='d-flex justify-content-around align-items-center' 
-              style={{ background: 'black', color: 'white', height: '80px', position: 'absolute', width: '100%', bottom: '0'}}>
+            <footer className='d-flex justify-content-around align-items-center footer'>
                 <div className='fw-bold fst-italic' role='button'>Condiciones de uso web</div>
                 <div className='fw-bold fst-italic' role='button'>Politica privacidad</div>
                 <div className='fw-bold fst-italic' role='button'>Configuración de cookies</div>
