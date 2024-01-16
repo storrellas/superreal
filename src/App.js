@@ -9,10 +9,20 @@ import { useState } from 'react';
 const AUTHOR = { ME: 'ME', BOT: 'BOT' }
 function App() {
   const [message, setMessage] = useState('')
-  const [messageList, setMessageList] = useState([{
-    author: AUTHOR.BOT, message: 'hello'
-  }])
-  const [showChat, setShowChat] = useState('')
+  const [messageList, setMessageList] = useState([
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+    {author: AUTHOR.BOT, message: 'hello'},
+  ])
+  const [showChat, setShowChat] = useState(true)
+  const [isWriting, setIsWriting] = useState(false)
 
   const onSend = () => {
     
@@ -45,7 +55,7 @@ function App() {
 
             {showChat?  
             <div className='w-100 d-flex justify-content-end message-list-container'>
-              <div className='message-list'>
+              <div className='message-list' style={{ overflow: 'auto'}}>
                 {messageList.map( (item,idx) => 
                   {
                     const classStr = item.author === AUTHOR.ME?'me-msg':'bot-msg'
@@ -60,6 +70,16 @@ function App() {
                             </div>)
                   }
                 )}
+                {isWriting||true?
+                <div>                      
+                  <div className={'m-1 ps-3 pe-3 d-flex justify-content-start'}>
+                    <div className={"bot-msg"}>
+                      {/* <div className='fw-bold'>{item.author}:</div> */}
+                      <div>...</div>
+                    </div>
+                  </div>
+                </div>
+                :null}
               </div>
             </div>
             :null}
@@ -74,9 +94,8 @@ function App() {
                 </div>
             </div>
 
-            <div className='d-flex w-100 justify-content-center align-items-center' 
-              style={{ position: 'absolute', bottom: '100px', width: '100%', padding: '0 5em'}}>
-              <div style={{ background: 'white', borderRadius: '50%', padding: '0.7em 1em'}}>
+            <div className='d-flex w-100 justify-content-center align-items-center bottom-controls'>
+              <div className='menu-hamburguer'>
                 <FontAwesomeIcon icon={faBars} />
               </div>
               <div className="flex-grow-1 ms-5 me-5" style={{ position: 'relative'}}>
